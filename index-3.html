@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funeral Service — ManyChat Automation Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080a0d;--card:#141720;--border:#1e2230;
+  --gold:#b8974a;--gold2:#dbb96a;--cream:#ede8df;--txt:#9ca0ae;--muted:#4a4f5e;
+  --blue:#4a7fd4;--purple:#7c5cbf;--green:#3a8f6a;--red:#c05050;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 40px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.glow1{position:absolute;top:-100px;right:-80px;width:480px;height:480px;background:radial-gradient(circle,rgba(184,151,74,.09) 0%,transparent 65%);pointer-events:none}
+.glow2{position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(74,127,212,.06) 0%,transparent 65%);pointer-events:none}
+.eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px;animation:fadeUp .7s ease both}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,7vw,68px);font-weight:600;color:var(--cream);line-height:1.05;margin-bottom:20px;animation:fadeUp .7s .1s ease both}
+h1 em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:15px;color:var(--muted);max-width:480px;margin-bottom:32px;animation:fadeUp .7s .2s ease both}
+.pills{display:flex;flex-wrap:wrap;gap:8px;animation:fadeUp .7s .3s ease both}
+.pill{background:rgba(184,151,74,.08);border:1px solid rgba(184,151,74,.2);color:var(--gold2);font-size:12px;padding:5px 14px;border-radius:20px;font-weight:500}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);animation:fadeUp .7s .5s ease both}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent);margin:8px auto 0;animation:pulse 2s ease infinite}
+.wrap{max-width:860px;margin:0 auto;padding:72px 40px}
+.sec-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,36px);color:var(--cream);font-weight:600;line-height:1.2;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:36px}
+.divider{border:none;border-top:1px solid var(--border)}
+.flow{display:flex;flex-direction:column;align-items:center}
+.fnode{width:100%;max-width:560px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;transition:border-color .2s,transform .2s;cursor:default}
+.fnode:hover{border-color:var(--gold);transform:translateY(-2px)}
+.fnode-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:4px}
+.fnode-title{font-size:15px;color:var(--cream);font-weight:500}
+.fnode-desc{font-size:13px;color:var(--muted);margin-top:3px}
+.fnode.t{border-left:3px solid var(--gold)}.fnode.t .fnode-lbl{color:var(--gold)}
+.fnode.m{border-left:3px solid var(--blue)}.fnode.m .fnode-lbl{color:var(--blue)}
+.fnode.q{border-left:3px solid var(--purple)}.fnode.q .fnode-lbl{color:var(--purple)}
+.fnode.a{border-left:3px solid var(--green)}.fnode.a .fnode-lbl{color:var(--green)}
+.fnode.c{border-left:3px solid var(--red)}.fnode.c .fnode-lbl{color:var(--red)}
+.arr{width:2px;height:26px;background:linear-gradient(to bottom,var(--border),transparent);position:relative}
+.arr::after{content:'▼';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tab{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:13px;padding:7px 18px;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.tab:hover,.tab.on{background:rgba(184,151,74,.1);border-color:var(--gold);color:var(--gold2)}
+.panel{display:none}.panel.on{display:block}
+.chat{display:flex;flex-direction:column;gap:14px}
+.crow{display:flex;gap:10px;align-items:flex-start}
+.crow.u{flex-direction:row-reverse}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.av.b{background:linear-gradient(135deg,#181b24,#222636);border:1px solid var(--gold)}
+.av.u{background:linear-gradient(135deg,#171e2e,#1e2a44);border:1px solid var(--blue)}
+.bub{max-width:74%;padding:12px 16px;border-radius:14px;font-size:14px;line-height:1.65}
+.bub.b{background:var(--card);border:1px solid var(--border);border-top-left-radius:4px;color:var(--txt)}
+.bub.u{background:rgba(74,127,212,.1);border:1px solid rgba(74,127,212,.22);border-top-right-radius:4px;color:var(--cream)}
+.ftag{display:inline-block;margin-top:7px;background:rgba(184,151,74,.12);color:var(--gold);font-size:11px;padding:2px 9px;border-radius:4px;font-family:monospace}
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.opt{background:rgba(184,151,74,.07);border:1px solid rgba(184,151,74,.28);color:var(--gold2);font-size:12px;padding:4px 12px;border-radius:6px}
+.slbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;padding-left:42px}
+.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.tbl-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.tbl-head span{font-size:13px;color:var(--cream);font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:rgba(184,151,74,.05);color:var(--gold);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:12px 18px;text-align:left;border-bottom:1px solid var(--border);font-weight:500}
+td{padding:11px 18px;color:var(--txt);border-bottom:1px solid rgba(30,34,48,.5)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:4px;font-weight:500}
+.tag.i{background:rgba(74,127,212,.1);color:var(--blue);border:1px solid rgba(74,127,212,.2)}
+.tag.d{background:rgba(124,92,191,.1);color:var(--purple);border:1px solid rgba(124,92,191,.2)}
+.tag.b{background:rgba(184,151,74,.1);color:var(--gold);border:1px solid rgba(184,151,74,.2)}
+.offer{background:linear-gradient(135deg,rgba(184,151,74,.06),rgba(184,151,74,.02));border:1px solid rgba(184,151,74,.28);border-radius:16px;padding:32px}
+.offer h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--cream);margin-bottom:8px}
+.offer p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.price-row{display:flex;flex-wrap:wrap;gap:14px}
+.pcard{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.plbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pamt{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold)}
+.pnote{font-size:12px;color:var(--muted);margin-top:4px}
+footer{text-align:center;padding:32px 20px 48px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+footer strong{color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@media(max-width:600px){.hero{padding:60px 20px}.wrap{padding:56px 20px}.offer{padding:20px}th,td{padding:10px 12px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <div class="eyebrow">ManyChat Automation Proposal</div>
+  <h1>Funeral Service<br><em>Lead Collection Flow</em></h1>
+  <p class="hero-sub">Automatic na nakukuha ang data ng bawat client na mag-i-inquire sa Facebook Messenger — walang manual na tanong-tanong.</p>
+  <div class="pills">
+    <span class="pill">ManyChat</span>
+    <span class="pill">Google Sheets</span>
+    <span class="pill">Inquirer Data</span>
+    <span class="pill">Deceased Data</span>
+    <span class="pill">Auto-Notify Staff</span>
+  </div>
+  <div class="scroll-hint">Scroll para sa details<div class="scroll-line"></div></div>
+</div>
+
+<div class="wrap">
+  <div class="sec-lbl">Step-by-Step</div>
+  <div class="sec-title">Flow Diagram</div>
+  <div class="sec-sub">Mula sa pagme-message ng client hanggang sa Google Sheets — automatic lahat</div>
+  <div class="flow">
+    <div class="fnode t"><div class="fnode-lbl">Trigger</div><div class="fnode-title">📩 May nagme-message sa Facebook Page</div><div class="fnode-desc">Kahit anong message — "inquiry", "magkano", "tulungan niyo kami"</div></div>
+    <div class="arr"></div>
+    <div class="fnode m"><div class="fnode-lbl">Welcome Message</div><div class="fnode-title">🤝 Auto-reply greeting</div><div class="fnode-desc">Nagpapakilala ang bot at hihilingin ang pahintulot para mag-tanong ng mga detalye</div></div>
+    <div class="arr"></div>
+    <div class="fnode q"><div class="fnode-lbl">Step 1 — Inquirer Info</div><div class="fnode-title">👤 Pangalan, numero, relasyon, lokasyon</div><div class="fnode-desc">Sino ang nagtatanong at paano sila ma-contact ng staff</div></div>
+    <div class="arr"></div>
+    <div class="fnode q"><div class="fnode-lbl">Step 2 — Deceased Info</div><div class="fnode-title">🕊️ Pangalan, birthdate, petsa ng pagpanaw, lokasyon ng katawan</div><div class="fnode-desc">Basic details ng yumaong mahal sa buhay</div></div>
+    <div class="arr"></div>
+    <div class="fnode q"><div class="fnode-lbl">Step 3 — Service Type</div><div class="fnode-title">📋 Anong pakete ang kailangan?</div><div class="fnode-desc">Quick-reply buttons — Basic, Standard, Premium, Cremation</div></div>
+    <div class="arr"></div>
+    <div class="fnode q"><div class="fnode-lbl">Step 4 — Schedule</div><div class="fnode-title">📅 Preferred na petsa at oras</div><div class="fnode-desc">Para maayos ang scheduling ng staff</div></div>
+    <div class="arr"></div>
+    <div class="fnode a"><div class="fnode-lbl">Action — Auto Save</div><div class="fnode-title">📊 Lahat ng data → Google Sheets</div><div class="fnode-desc">Automatic na lumalabas sa spreadsheet ng staff, real-time</div></div>
+    <div class="arr"></div>
+    <div class="fnode c"><div class="fnode-lbl">Confirmation</div><div class="fnode-title">✅ Thank you message + next steps</div><div class="fnode-desc">"Makikipag-ugnayan sa inyo ang aming staff sa loob ng 1 oras."</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+  <div class="sec-lbl">Messenger Preview</div>
+  <div class="sec-title">Actual Script ng Messages</div>
+  <div class="sec-sub">Ito ang exact na makikita ng client sa Messenger</div>
+  <div class="tabs">
+    <button class="tab on" onclick="switchTab('full',this)">Buong Flow</button>
+    <button class="tab" onclick="switchTab('inquirer',this)">Inquirer Info</button>
+    <button class="tab" onclick="switchTab('deceased',this)">Deceased Info</button>
+    <button class="tab" onclick="switchTab('confirm',this)">Confirmation</button>
+  </div>
+
+  <div class="panel on" id="tab-full">
+    <div class="chat">
+      <div class="slbl">Welcome</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Magandang araw po. Salamat sa pakikipag-ugnayan sa amin.<br><br>Para makatulong kayo nang maayos, kakailanganin namin ang ilang detalye. Maaari ba naming hilingin ang inyong oras?<br><br><em style="font-size:13px;color:var(--muted)">Lahat ng impormasyon ay ituturing naming kumpidensyal.</em><div class="opts"><span class="opt">✅ Oo, sige po</span><span class="opt">📞 Tawagan na lang</span></div></div></div>
+      <div class="slbl">Inquirer — Pangalan</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong buong pangalan?<div class="ftag">→ saves: inquirer_name</div></div></div>
+      <div class="crow u"><div class="av u">👤</div><div class="bub u">Maria Santos</div></div>
+      <div class="slbl">Inquirer — Numero</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong contact number para makipag-ugnayan ang aming staff?<div class="ftag">→ saves: inquirer_number</div></div></div>
+      <div class="crow u"><div class="av u">👤</div><div class="bub u">09XX-XXX-XXXX</div></div>
+      <div class="slbl">Inquirer — Relasyon</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong relasyon sa yumaong mahal sa buhay?<div class="opts"><span class="opt">Anak</span><span class="opt">Asawa</span><span class="opt">Magulang</span><span class="opt">Iba pa</span></div><div class="ftag">→ saves: inquirer_relation</div></div></div>
+      <div class="slbl">Deceased — Pangalan</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang buong pangalan ng yumaong mahal sa buhay?<div class="ftag">→ saves: deceased_name</div></div></div>
+      <div class="slbl">Deceased — Petsa ng Pagpanaw</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Kailan po siya pumanaw? (hal. Abril 20, 2025)<div class="ftag">→ saves: deceased_date_of_death</div></div></div>
+      <div class="slbl">Deceased — Lokasyon</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Saan po kasalukuyang naroroon ang katawan?<div class="opts"><span class="opt">Sa ospital</span><span class="opt">Sa bahay</span><span class="opt">Sa ibang lugar</span></div><div class="ftag">→ saves: deceased_location</div></div></div>
+      <div class="slbl">Service Type</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Anong uri ng serbisyo po ang kailangan ninyo?<div class="opts"><span class="opt">Basic Package</span><span class="opt">Standard Package</span><span class="opt">Premium Package</span><span class="opt">Cremation</span></div><div class="ftag">→ saves: service_type</div></div></div>
+      <div class="slbl">Schedule</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Kailan po kailangan ang serbisyo? Anong petsa at oras kung maaari?<div class="ftag">→ saves: preferred_schedule</div></div></div>
+      <div class="slbl">Confirmation</div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Salamat po, <strong>[inquirer_name]</strong>. Natanggap na namin ang inyong impormasyon.<br><br>📋 <strong>Summary:</strong><br>• Yumaong mahal sa buhay: [deceased_name]<br>• Serbisyo: [service_type]<br>• Schedule: [preferred_schedule]<br><br>Makikipag-ugnayan sa inyo ang aming staff sa loob ng <strong>1 oras</strong>. Nandito po kami. 🕊️</div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="tab-inquirer">
+    <div class="chat">
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong buong pangalan?<div class="ftag">→ inquirer_name</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong contact number?<div class="ftag">→ inquirer_number</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang inyong relasyon sa yumaong mahal sa buhay?<div class="opts"><span class="opt">Anak</span><span class="opt">Asawa</span><span class="opt">Magulang</span><span class="opt">Iba pa</span></div><div class="ftag">→ inquirer_relation</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Saan po kayo naroroon ngayon? (lungsod/bayan)<div class="ftag">→ inquirer_location</div></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="tab-deceased">
+    <div class="chat">
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Ano po ang buong pangalan ng yumaong mahal sa buhay?<div class="ftag">→ deceased_name</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Kailan po siya ipinanganak? (hal. Enero 5, 1950)<div class="ftag">→ deceased_birthdate</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Kailan po siya pumanaw?<div class="ftag">→ deceased_date_of_death</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Saan po siya ipinanganak? (lungsod/lalawigan)<div class="ftag">→ deceased_birthplace</div></div></div>
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Saan po kasalukuyang naroroon ang katawan?<div class="opts"><span class="opt">Sa ospital</span><span class="opt">Sa bahay</span><span class="opt">Sa ibang lugar</span></div><div class="ftag">→ deceased_location</div></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="tab-confirm">
+    <div class="chat">
+      <div class="crow"><div class="av b">🕊️</div><div class="bub b">Salamat po, <strong>[inquirer_name]</strong>. Natanggap na namin ang lahat ng impormasyon.<br><br>📋 <strong>Summary ng inyong inquiry:</strong><br>• Yumaong mahal sa buhay: [deceased_name]<br>• Serbisyo: [service_type]<br>• Schedule: [preferred_schedule]<br><br>Makikipag-ugnayan sa inyo ang aming staff sa loob ng <strong>1 oras</strong> sa numerong ibinigay ninyo.<br><br>Nandito po kami sa panahon ng inyong pangangailangan. 🕊️</div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+  <div class="sec-lbl">Google Sheets Output</div>
+  <div class="sec-title">Data na Makukuha</div>
+  <div class="sec-sub">Automatic na lalabas ang bawat column sa spreadsheet pagkatapos mag-inquire</div>
+  <div class="tbl-wrap">
+    <div class="tbl-head"><div class="dot"></div><span>funeral_leads — Google Sheets (live)</span></div>
+    <table>
+      <thead><tr><th>Field Name</th><th>Halimbawa</th><th>Para kanino</th></tr></thead>
+      <tbody>
+        <tr><td>inquirer_name</td><td>Maria Santos</td><td><span class="tag i">Inquirer</span></td></tr>
+        <tr><td>inquirer_number</td><td>09XX-XXX-XXXX</td><td><span class="tag i">Inquirer</span></td></tr>
+        <tr><td>inquirer_relation</td><td>Anak</td><td><span class="tag i">Inquirer</span></td></tr>
+        <tr><td>inquirer_location</td><td>Tarlac City</td><td><span class="tag i">Inquirer</span></td></tr>
+        <tr><td>deceased_name</td><td>Juan Santos</td><td><span class="tag d">Deceased</span></td></tr>
+        <tr><td>deceased_birthdate</td><td>Enero 5, 1950</td><td><span class="tag d">Deceased</span></td></tr>
+        <tr><td>deceased_birthplace</td><td>Tarlac City</td><td><span class="tag d">Deceased</span></td></tr>
+        <tr><td>deceased_date_of_death</td><td>Abril 20, 2025</td><td><span class="tag d">Deceased</span></td></tr>
+        <tr><td>deceased_location</td><td>Ospital</td><td><span class="tag d">Deceased</span></td></tr>
+        <tr><td>service_type</td><td>Standard Package</td><td><span class="tag b">Both</span></td></tr>
+        <tr><td>preferred_schedule</td><td>Abril 22, 2025 — 10am</td><td><span class="tag b">Both</span></td></tr>
+        <tr><td>timestamp</td><td>2025-04-22 08:31:00</td><td><span class="tag b">Both</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+  <div class="sec-lbl">Pricing</div>
+  <div class="sec-title">Service Package</div>
+  <div class="sec-sub">Para sa funeral business na gusto mag-automate ng client inquiries</div>
+  <div class="offer">
+    <h3>ManyChat Automation Setup</h3>
+    <p>Kasama ang buong flow setup, Google Sheets integration, at staff training kung paano gamitin ang data.</p>
+    <div class="price-row">
+      <div class="pcard"><div class="plbl">One-time Setup</div><div class="pamt">₱3,500</div><div class="pnote">Full flow + Google Sheets</div></div>
+      <div class="pcard"><div class="plbl">Monthly Support</div><div class="pamt">₱800</div><div class="pnote">Edits, updates, monitoring</div></div>
+      <div class="pcard"><div class="plbl">ManyChat Pro</div><div class="pamt">$15/mo</div><div class="pnote">Sa pangalan ng client</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>Prepared by <strong>AR Email Specialist</strong> · ManyChat Automation Services</footer>
+
+<script>
+function switchTab(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('tab-'+id).classList.add('on');
+  el.classList.add('on');
+}
+</script>
+</body>
+</html>
