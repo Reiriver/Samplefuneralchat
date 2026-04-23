@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR Email Specialist — Chatbot & Automation Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07090f;
+  --bg2:#0b0f1a;
+  --navy:#0d1526;
+  --card:#111827;
+  --card2:#151e30;
+  --border:#1e2d4a;
+  --blue:#2563eb;
+  --blue2:#3b82f6;
+  --blue3:#60a5fa;
+  --cyan:#06b6d4;
+  --white:#f8fafc;
+  --grey:#94a3b8;
+  --muted:#475569;
+  --messenger:#0084ff;
+  --msg-in:#f0f0f0;
+  --msg-out:#0084ff;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden}
+
+/* ── GRID BG ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(37,99,235,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.04) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(7,9,15,.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--white);letter-spacing:-.5px}
+.nav-logo span{color:var(--blue2)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{color:var(--grey);font-size:14px;text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--blue);color:#fff;font-size:13px;font-weight:600;padding:9px 22px;border-radius:8px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--blue2)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 48px 80px;position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);
+  color:var(--blue3);font-size:12px;font-weight:600;
+  padding:6px 14px;border-radius:20px;margin-bottom:28px;
+  letter-spacing:.5px;text-transform:uppercase;
+  animation:fadeUp .6s ease both;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 1.5s ease infinite}
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(40px,6vw,76px);
+  font-weight:800;line-height:1.0;
+  letter-spacing:-2px;
+  margin-bottom:24px;
+  animation:fadeUp .6s .1s ease both;
+}
+.hero h1 .line2{color:var(--blue2)}
+.hero h1 .line3{
+  background:linear-gradient(90deg,var(--blue2),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:17px;color:var(--grey);max-width:520px;
+  margin-bottom:40px;font-weight:400;
+  animation:fadeUp .6s .2s ease both;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+.btn-primary{
+  background:var(--blue);color:#fff;font-size:15px;font-weight:600;
+  padding:14px 28px;border-radius:10px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .2s;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.btn-primary:hover{background:var(--blue2);transform:translateY(-2px)}
+.btn-ghost{
+  background:transparent;color:var(--white);font-size:15px;font-weight:600;
+  padding:14px 28px;border-radius:10px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);transition:all .2s;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.btn-ghost:hover{border-color:var(--blue2);color:var(--blue3);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:40px;margin-top:56px;
+  animation:fadeUp .6s .4s ease both;
+}
+.stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--white)}
+.stat-lbl{font-size:13px;color:var(--muted)}
+
+/* ── SECTION BASE ── */
+.section{padding:100px 48px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.sec-badge{
+  display:inline-block;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);
+  color:var(--blue3);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;margin-bottom:16px;
+}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1px;margin-bottom:8px;line-height:1.1}
+.sec-sub{font-size:15px;color:var(--grey);margin-bottom:56px;max-width:500px}
+.full-divider{border:none;border-top:1px solid var(--border)}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.svc-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:28px;transition:all .25s;position:relative;overflow:hidden;
+}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  opacity:0;transition:opacity .25s;
+}
+.svc-card:hover{border-color:var(--blue);transform:translateY(-4px)}
+.svc-card:hover::before{opacity:1}
+.svc-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:18px;
+}
+.svc-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px}
+.svc-desc{font-size:14px;color:var(--grey);line-height:1.6}
+
+/* ── MESSENGER SHOWCASE ── */
+.showcase-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.showcase-info{}
+.showcase-info h2{font-family:'Syne',sans-serif;font-size:clamp(26px,3.5vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;line-height:1.1}
+.showcase-info p{font-size:15px;color:var(--grey);margin-bottom:28px}
+.feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.feat-item{display:flex;align-items:flex-start;gap:12px}
+.feat-check{
+  width:22px;height:22px;border-radius:6px;
+  background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;flex-shrink:0;margin-top:2px;color:var(--blue3);
+}
+.feat-text{font-size:14px;color:var(--grey)}
+.feat-text strong{color:var(--white)}
+
+/* DEMO TABS */
+.demo-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.dtab{
+  background:var(--card2);border:1px solid var(--border);color:var(--grey);
+  font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;
+  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;
+  letter-spacing:.3px;
+}
+.dtab:hover,.dtab.on{background:rgba(37,99,235,.15);border-color:var(--blue);color:var(--blue3)}
+.dpanel{display:none}.dpanel.on{display:block}
+
+/* MESSENGER PHONE UI */
+.phone-wrap{
+  background:linear-gradient(135deg,#1a2035,#0d1526);
+  border:1px solid var(--border);border-radius:24px;
+  padding:16px;
+  box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 0 1px rgba(37,99,235,.1);
+}
+.phone-screen{
+  background:#fff;border-radius:16px;overflow:hidden;
+  min-height:480px;display:flex;flex-direction:column;
+}
+.phone-header{
+  background:#fff;padding:12px 16px;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;align-items:center;gap:10px;
+}
+.phone-back{color:#0084ff;font-size:13px;font-weight:600}
+.phone-av{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,#0084ff,#00c6ff);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.phone-name{font-size:14px;font-weight:700;color:#111;font-family:'Plus Jakarta Sans',sans-serif}
+.phone-status{font-size:11px;color:#6b7280}
+.phone-body{flex:1;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f0f2f5}
+
+/* CHAT BUBBLES */
+.cb-row{display:flex;gap:8px;align-items:flex-end}
+.cb-row.out{flex-direction:row-reverse}
+.cb-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0084ff,#00c6ff);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.cb-bub{
+  max-width:72%;padding:10px 14px;border-radius:18px;
+  font-size:13px;line-height:1.5;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.cb-bub.in{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.cb-bub.out{background:#0084ff;color:#fff;border-bottom-right-radius:4px}
+.cb-time{font-size:10px;color:#9ca3af;padding:0 4px}
+
+/* QUICK REPLIES */
+.qr-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;padding-left:36px}
+.qr-btn{
+  background:#fff;border:1.5px solid #0084ff;color:#0084ff;
+  font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;
+  font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;
+  transition:all .15s;
+}
+.qr-btn:hover{background:#0084ff;color:#fff}
+
+/* TYPING INDICATOR */
+.typing{display:flex;gap:8px;align-items:center}
+.typing-dots{display:flex;gap:4px;padding:10px 14px;background:#fff;border-radius:18px;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:#9ca3af;animation:typingDot 1.2s ease infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+
+.phone-input{
+  background:#fff;padding:10px 14px;
+  border-top:1px solid #e5e7eb;
+  display:flex;align-items:center;gap:8px;
+}
+.phone-input-field{
+  flex:1;background:#f0f2f5;border:none;border-radius:20px;
+  padding:8px 14px;font-size:13px;color:#6b7280;
+  font-family:'Plus Jakarta Sans',sans-serif;outline:none;
+}
+.phone-send{
+  width:32px;height:32px;border-radius:50%;background:#0084ff;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;
+}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.price-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:32px;position:relative;transition:all .25s;
+}
+.price-card:hover{transform:translateY(-4px);border-color:var(--blue)}
+.price-card.featured{
+  background:linear-gradient(135deg,rgba(37,99,235,.15),rgba(6,182,212,.08));
+  border-color:var(--blue);
+}
+.price-card.featured::after{
+  content:'BEST VALUE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:2px;
+  padding:4px 14px;border-radius:20px;
+}
+.price-name{font-size:13px;font-weight:600;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.price-amt{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:var(--white);margin-bottom:4px}
+.price-amt span{font-size:16px;font-weight:400;color:var(--grey)}
+.price-note{font-size:12px;color:var(--muted);margin-bottom:24px}
+.price-divider{border:none;border-top:1px solid var(--border);margin-bottom:20px}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pf{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--grey)}
+.pf-check{color:var(--blue3);font-size:14px;flex-shrink:0}
+.price-btn{
+  width:100%;background:var(--card2);border:1px solid var(--border);
+  color:var(--white);font-size:14px;font-weight:600;
+  padding:12px;border-radius:10px;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;
+}
+.price-btn:hover{background:var(--blue);border-color:var(--blue)}
+.price-card.featured .price-btn{background:var(--blue);border-color:var(--blue)}
+.price-card.featured .price-btn:hover{background:var(--blue2)}
+
+/* ── HOW IT WORKS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;position:relative}
+.steps-grid::before{
+  content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),var(--border),transparent);
+}
+.step-item{text-align:center;padding:0 20px;position:relative}
+.step-num{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 20px;
+  background:rgba(37,99,235,.15);border:2px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--blue3);
+  position:relative;z-index:1;background:var(--bg2);
+}
+.step-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--grey);line-height:1.6}
+
+/* ── CTA ── */
+.cta-box{
+  background:linear-gradient(135deg,rgba(37,99,235,.15),rgba(6,182,212,.08));
+  border:1px solid rgba(37,99,235,.3);border-radius:24px;
+  padding:64px 48px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-box::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(37,99,235,.15),transparent 65%);
+  pointer-events:none;
+}
+.cta-box h2{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:14px}
+.cta-box p{font-size:16px;color:var(--grey);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:32px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+  position:relative;z-index:1;
+}
+.footer-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+.footer-logo span{color:var(--blue2)}
+footer p{font-size:13px;color:var(--muted)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes typingDot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .hero{padding:100px 20px 60px}
+  .section{padding:72px 20px}
+  .showcase-wrap{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+  .cta-box{padding:40px 24px}
+  footer{padding:24px 20px;flex-direction:column;text-align:center}
+  .steps-grid::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AR<span>.</span>Email</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#showcase">Demo</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="https://www.facebook.com/share/1DKfL1d6gv/" target="_blank" class="nav-cta">Get Started →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="badge-dot"></span>Chatbot & Automation Specialist</div>
+  <h1>
+    Automate Your<br>
+    <span class="line2">Business Chats.</span><br>
+    <span class="line3">Capture Every Lead.</span>
+  </h1>
+  <p class="hero-sub">We build ManyChat flows, email automation, and chatbot systems that collect client data 24/7 — so you don't have to manually reply to every inquiry.</p>
+  <div class="hero-btns">
+    <a href="#showcase" class="btn-primary">See it in Action ↓</a>
+    <a href="https://www.facebook.com/share/1DKfL1d6gv/" target="_blank" class="btn-ghost">Message Us 💬</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">24/7</div><div class="stat-lbl">Auto-response</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-lbl">Lead Captured</div></div>
+    <div><div class="stat-num">₱0</div><div class="stat-lbl">Missed Inquiries</div></div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- SERVICES -->
+<div class="section" id="services">
+  <div class="sec-badge">What We Do</div>
+  <div class="sec-title">Our Services</div>
+  <div class="sec-sub">Everything your business needs to automate customer conversations and never miss a lead.</div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-icon">🤖</div>
+      <div class="svc-title">ManyChat Flow Setup</div>
+      <div class="svc-desc">Custom chatbot flows for Facebook Messenger and Instagram DMs. Auto-reply, lead capture, keyword triggers — fully set up for your business.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">📊</div>
+      <div class="svc-title">Google Sheets Integration</div>
+      <div class="svc-desc">Every inquiry automatically saved to your spreadsheet in real-time. Client name, number, needs — organized and ready for your team.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">📧</div>
+      <div class="svc-title">Email Outreach Automation</div>
+      <div class="svc-desc">Cold email campaigns built and automated. AI-personalized messages, follow-up sequences, and lead tracking — all on autopilot.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">⚡</div>
+      <div class="svc-title">Make.com Workflows</div>
+      <div class="svc-desc">Connect your tools without code. ManyChat → Sheets → Email → Notifications. Custom automations that save you hours every week.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">💬</div>
+      <div class="svc-title">WhatsApp & SMS Setup</div>
+      <div class="svc-desc">Reach clients beyond Messenger. WhatsApp Business automation and SMS follow-ups so your leads never go cold.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">📱</div>
+      <div class="svc-title">Comment Auto-DM</div>
+      <div class="svc-desc">Turn every Facebook/Instagram comment into a private conversation. Someone comments on your post — they get a DM instantly.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- SHOWCASE -->
+<div class="section" id="showcase">
+  <div class="showcase-wrap">
+    <div class="showcase-info">
+      <div class="sec-badge">Live Demo</div>
+      <h2>See Exactly How<br>It Looks to Your Clients</h2>
+      <p>This is what your customers see when they message your Facebook Page. Professional, instant, and fully automated.</p>
+      <div class="feature-list">
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><strong>Instant replies</strong> — no more waiting or missing messages</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><strong>Quick reply buttons</strong> — guides clients to the right info fast</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><strong>Data collection</strong> — name, number, needs saved automatically</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><strong>Works 24/7</strong> — even while you sleep or have no signal</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><strong>Any niche</strong> — funeral, vape, food, clinic, salon, and more</div>
+        </div>
+      </div>
+      <div class="demo-tabs">
+        <button class="dtab on" onclick="switchDemo('welcome',this)">Welcome</button>
+        <button class="dtab" onclick="switchDemo('inquiry',this)">Inquiry Flow</button>
+        <button class="dtab" onclick="switchDemo('booking',this)">Booking</button>
+        <button class="dtab" onclick="switchDemo('confirm',this)">Confirmation</button>
+      </div>
+    </div>
+
+    <!-- PHONE -->
+    <div>
+      <!-- Welcome Demo -->
+      <div class="dpanel on" id="demo-welcome">
+        <div class="phone-wrap">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div style="color:#0084ff;font-size:18px;">‹</div>
+              <div class="phone-av">🏪</div>
+              <div>
+                <div class="phone-name">Your Business Page</div>
+                <div class="phone-status">● Typically replies instantly</div>
+              </div>
+            </div>
+            <div class="phone-body">
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div>
+                  <div class="cb-bub in">Hi! 👋 Welcome to our page. How can we help you today?</div>
+                  <div class="qr-wrap" style="padding-left:0;margin-top:8px;">
+                    <button class="qr-btn">📋 Our Services</button>
+                    <button class="qr-btn">💰 Pricing</button>
+                    <button class="qr-btn">📞 Contact Us</button>
+                    <button class="qr-btn">📍 Location</button>
+                  </div>
+                </div>
+              </div>
+              <div class="cb-row out">
+                <div class="cb-bub out">Our Services</div>
+              </div>
+              <div class="typing">
+                <div class="cb-av">🏪</div>
+                <div class="typing-dots"><span></span><span></span><span></span></div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div class="cb-bub in">Great! Here's what we offer. Which one interests you? 😊</div>
+              </div>
+            </div>
+            <div class="phone-input">
+              <div class="phone-input-field">Type a message...</div>
+              <div class="phone-send">➤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inquiry Demo -->
+      <div class="dpanel" id="demo-inquiry">
+        <div class="phone-wrap">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div style="color:#0084ff;font-size:18px;">‹</div>
+              <div class="phone-av">🏪</div>
+              <div>
+                <div class="phone-name">Your Business Page</div>
+                <div class="phone-status">● Typically replies instantly</div>
+              </div>
+            </div>
+            <div class="phone-body">
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div class="cb-bub in">To assist you better, may I ask for your name? 😊</div>
+              </div>
+              <div class="cb-row out">
+                <div class="cb-bub out">Maria Santos</div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div class="cb-bub in">Nice to meet you, Maria! 🙌<br>What's the best number to reach you?</div>
+              </div>
+              <div class="cb-row out">
+                <div class="cb-bub out">09XX-XXX-XXXX</div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div>
+                  <div class="cb-bub in">Perfect! What are you inquiring about?</div>
+                  <div class="qr-wrap" style="padding-left:0;margin-top:8px;">
+                    <button class="qr-btn">Product Info</button>
+                    <button class="qr-btn">Booking</button>
+                    <button class="qr-btn">Price List</button>
+                    <button class="qr-btn">Others</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-input">
+              <div class="phone-input-field">Type a message...</div>
+              <div class="phone-send">➤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Demo -->
+      <div class="dpanel" id="demo-booking">
+        <div class="phone-wrap">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div style="color:#0084ff;font-size:18px;">‹</div>
+              <div class="phone-av">🏪</div>
+              <div>
+                <div class="phone-name">Your Business Page</div>
+                <div class="phone-status">● Typically replies instantly</div>
+              </div>
+            </div>
+            <div class="phone-body">
+              <div class="cb-row out">
+                <div class="cb-bub out">Booking</div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div>
+                  <div class="cb-bub in">Great! Let's get you booked. 📅<br>What date works for you?</div>
+                  <div class="qr-wrap" style="padding-left:0;margin-top:8px;">
+                    <button class="qr-btn">This week</button>
+                    <button class="qr-btn">Next week</button>
+                    <button class="qr-btn">Pick a date</button>
+                  </div>
+                </div>
+              </div>
+              <div class="cb-row out">
+                <div class="cb-bub out">This week</div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div>
+                  <div class="cb-bub in">What time preferred? ⏰</div>
+                  <div class="qr-wrap" style="padding-left:0;margin-top:8px;">
+                    <button class="qr-btn">Morning</button>
+                    <button class="qr-btn">Afternoon</button>
+                    <button class="qr-btn">Evening</button>
+                  </div>
+                </div>
+              </div>
+              <div class="cb-row out">
+                <div class="cb-bub out">Morning</div>
+              </div>
+              <div class="typing">
+                <div class="cb-av">🏪</div>
+                <div class="typing-dots"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <div class="phone-input">
+              <div class="phone-input-field">Type a message...</div>
+              <div class="phone-send">➤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation Demo -->
+      <div class="dpanel" id="demo-confirm">
+        <div class="phone-wrap">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div style="color:#0084ff;font-size:18px;">‹</div>
+              <div class="phone-av">🏪</div>
+              <div>
+                <div class="phone-name">Your Business Page</div>
+                <div class="phone-status">● Typically replies instantly</div>
+              </div>
+            </div>
+            <div class="phone-body">
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div class="cb-bub in">
+                  ✅ <strong>Got it, Maria!</strong><br><br>
+                  Here's your summary:<br>
+                  📛 Name: Maria Santos<br>
+                  📞 Number: 09XX-XXX-XXXX<br>
+                  📋 Inquiry: Booking<br>
+                  📅 Schedule: This week, Morning<br><br>
+                  Our team will contact you within <strong>1 hour</strong>. Thank you! 🙏
+                </div>
+              </div>
+              <div class="cb-row">
+                <div class="cb-av">🏪</div>
+                <div>
+                  <div class="cb-bub in">Is there anything else I can help you with?</div>
+                  <div class="qr-wrap" style="padding-left:0;margin-top:8px;">
+                    <button class="qr-btn">✅ All good!</button>
+                    <button class="qr-btn">📞 Call me instead</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-input">
+              <div class="phone-input-field">Type a message...</div>
+              <div class="phone-send">➤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div style="text-align:center;margin-bottom:56px;">
+    <div class="sec-badge" style="display:inline-block">How It Works</div>
+    <div class="sec-title" style="margin-top:12px">Simple 4-Step Process</div>
+  </div>
+  <div class="steps-grid">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-title">You Share Your Business Info</div>
+      <div class="step-desc">Tell us your services, tone, FAQs, and what data you want to collect from clients.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-title">We Build the Flow</div>
+      <div class="step-desc">We design and set up your ManyChat flow, scripts, quick reply buttons, and Google Sheets connection.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-title">We Test & Launch</div>
+      <div class="step-desc">We run full testing before going live. You approve the flow, then we connect it to your page.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-title">You Receive Leads 24/7</div>
+      <div class="step-desc">Every inquiry is automatically captured to your sheet. You just call back confirmed leads.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <div class="sec-badge">Pricing</div>
+  <div class="sec-title">Simple, Affordable Packages</div>
+  <div class="sec-sub">One-time setup fee lang. No hidden charges. Ikaw na bahala sa ManyChat subscription mo.</div>
+  <div class="pricing-grid">
+
+    <!-- PACKAGE 1 -->
+    <div class="price-card">
+      <div class="price-name">📦 Package 1 — Basic</div>
+      <div class="price-amt">₱1,000</div>
+      <div class="price-note">One-time setup · Works on FREE ManyChat account</div>
+      <div class="price-divider"></div>
+      <div style="font-size:12px;color:var(--blue3);margin-bottom:12px;font-weight:600;">🆓 Zero cost sa ManyChat — FREE plan lang</div>
+      <div class="price-features">
+        <div class="pf"><span class="pf-check">✓</span>Basic welcome + auto-reply flow</div>
+        <div class="pf"><span class="pf-check">✓</span>Up to 3 keyword triggers (e.g. "price", "menu", "hours")</div>
+        <div class="pf"><span class="pf-check">✓</span>Quick reply buttons setup</div>
+        <div class="pf"><span class="pf-check">✓</span>Simple lead capture (name + number)</div>
+        <div class="pf"><span class="pf-check">✓</span>Up to 1,000 contacts (ManyChat Free limit)</div>
+        <div class="pf"><span class="pf-check">✓</span>2 flow revisions included</div>
+        <div class="pf" style="color:var(--muted)"><span style="color:var(--muted)">✗</span>No Google Sheets integration</div>
+        <div class="pf" style="color:var(--muted)"><span style="color:var(--muted)">✗</span>No comment-to-DM automation</div>
+      </div>
+      <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--grey);margin-bottom:20px;">
+        💡 <strong style="color:var(--white)">Best for:</strong> Small businesses just starting out — carinderia, sari-sari, salon, etc.
+      </div>
+      <button class="price-btn" onclick="window.open('https://www.facebook.com/share/1DKfL1d6gv/','_blank')">Get Started →</button>
+    </div>
+
+    <!-- PACKAGE 2 -->
+    <div class="price-card featured">
+      <div class="price-name">🚀 Package 2 — Pro</div>
+      <div class="price-amt">₱2,500</div>
+      <div class="price-note">One-time setup · Requires ManyChat Pro ($15/mo)</div>
+      <div class="price-divider"></div>
+      <div style="font-size:12px;color:#facc15;margin-bottom:12px;font-weight:600;">⭐ ManyChat Pro — Unlocks full features</div>
+      <div class="price-features">
+        <div class="pf"><span class="pf-check">✓</span>Full custom flow (unlimited steps)</div>
+        <div class="pf"><span class="pf-check">✓</span>Unlimited keyword triggers</div>
+        <div class="pf"><span class="pf-check">✓</span>Lead capture — name, number, email, custom fields</div>
+        <div class="pf"><span class="pf-check">✓</span>Google Sheets auto-save integration</div>
+        <div class="pf"><span class="pf-check">✓</span>Comment → Auto DM automation</div>
+        <div class="pf"><span class="pf-check">✓</span>Unlimited tags & audience segmentation</div>
+        <div class="pf"><span class="pf-check">✓</span>Up to 2,500 active contacts/month</div>
+        <div class="pf"><span class="pf-check">✓</span>No ManyChat branding on messages</div>
+        <div class="pf"><span class="pf-check">✓</span>Unlimited revisions</div>
+      </div>
+      <div style="background:rgba(250,204,21,.06);border:1px solid rgba(250,204,21,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--grey);margin-bottom:20px;">
+        💡 <strong style="color:var(--white)">Best for:</strong> Growing businesses — vape shops, funeral services, clinics, food businesses
+      </div>
+      <button class="price-btn" onclick="window.open('https://www.facebook.com/share/1DKfL1d6gv/','_blank')">Get Started →</button>
+    </div>
+
+    <!-- PACKAGE 3 -->
+    <div class="price-card">
+      <div class="price-name">👑 Package 3 — Premium</div>
+      <div class="price-amt">₱4,500</div>
+      <div class="price-note">One-time setup · Requires ManyChat Pro ($15/mo)</div>
+      <div class="price-divider"></div>
+      <div style="font-size:12px;color:#a78bfa;margin-bottom:12px;font-weight:600;">🔥 Full Automation System — Max results</div>
+      <div class="price-features">
+        <div class="pf"><span class="pf-check">✓</span>Everything in Pro Package</div>
+        <div class="pf"><span class="pf-check">✓</span>Make.com workflow setup (multi-tool automation)</div>
+        <div class="pf"><span class="pf-check">✓</span>Email or SMS follow-up sequences</div>
+        <div class="pf"><span class="pf-check">✓</span>Staff notification system (auto-alert kapag may lead)</div>
+        <div class="pf"><span class="pf-check">✓</span>WhatsApp or Instagram DM integration</div>
+        <div class="pf"><span class="pf-check">✓</span>Drip sequences (auto-follow up sa contacts)</div>
+        <div class="pf"><span class="pf-check">✓</span>Full CRM-style lead tracking via Sheets</div>
+        <div class="pf"><span class="pf-check">✓</span>Monthly maintenance + edits (₱800/mo optional)</div>
+        <div class="pf"><span class="pf-check">✓</span>Priority support</div>
+      </div>
+      <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--grey);margin-bottom:20px;">
+        💡 <strong style="color:var(--white)">Best for:</strong> Businesses that want full automation — zero missed leads, zero manual follow-ups
+      </div>
+      <button class="price-btn" onclick="window.open('https://www.facebook.com/share/1DKfL1d6gv/','_blank')">Get Started →</button>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted);">
+    * ManyChat Free plan — libre forever. ManyChat Pro ($15/mo) — bibilhin ng client, hindi kasama sa setup fee. Pag lumampas sa 2,500 active contacts/month, $0.05 per extra contact.
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- CTA -->
+<div class="section" id="contact">
+  <div class="cta-box">
+    <h2>Ready to Automate<br>Your Business?</h2>
+    <p>Message us on Facebook and let's discuss what flow works best for your business. Fast setup, low cost, big results.</p>
+    <div class="cta-btns">
+      <a href="https://www.facebook.com/share/1DKfL1d6gv/" target="_blank" class="btn-primary">💬 Message Us on Facebook</a>
+      <a href="https://www.facebook.com/share/1DKfL1d6gv/" target="_blank" class="btn-ghost">📧 Send an Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AR<span>.</span>Email Specialist</div>
+  <p>© 2025 AR Email Specialist. Tarlac City, Philippines.</p>
+  <p style="color:var(--muted);font-size:12px;">ManyChat · Automation · Lead Generation</p>
+</footer>
+
+<script>
+function switchDemo(id,el){
+  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('demo-'+id).classList.add('on');
+  el.classList.add('on');
+}
+</script>
+</body>
+</html>
